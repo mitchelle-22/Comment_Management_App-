@@ -17,6 +17,7 @@
 		609CCA002B0BAA05008C618B /* AddCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CC9FF2B0BAA04008C618B /* AddCommentView.swift */; };
 		609CCA022B0BAA1B008C618B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CCA012B0BAA1B008C618B /* ProfileView.swift */; };
 		609CCA042B0BAA85008C618B /* CommentManagementListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CCA032B0BAA85008C618B /* CommentManagementListView.swift */; };
+		609CCA062B0BAF0F008C618B /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CCA052B0BAF0F008C618B /* NewPostView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		609CC9FF2B0BAA04008C618B /* AddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentView.swift; sourceTree = "<group>"; };
 		609CCA012B0BAA1B008C618B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		609CCA032B0BAA85008C618B /* CommentManagementListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManagementListView.swift; sourceTree = "<group>"; };
+		609CCA052B0BAF0F008C618B /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				609CC9FF2B0BAA04008C618B /* AddCommentView.swift */,
 				609CCA012B0BAA1B008C618B /* ProfileView.swift */,
 				609CCA032B0BAA85008C618B /* CommentManagementListView.swift */,
+				609CCA052B0BAF0F008C618B /* NewPostView.swift */,
 			);
 			path = Comment_Management_App;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				609CCA022B0BAA1B008C618B /* ProfileView.swift in Sources */,
 				609CC9D82B0BA7BE008C618B /* CommentManagementTabView.swift in Sources */,
 				609CCA002B0BAA05008C618B /* AddCommentView.swift in Sources */,
+				609CCA062B0BAF0F008C618B /* NewPostView.swift in Sources */,
 				609CCA042B0BAA85008C618B /* CommentManagementListView.swift in Sources */,
 				609CC9D62B0BA7BE008C618B /* Comment_Management_AppApp.swift in Sources */,
 			);

@@ -17,13 +17,13 @@ struct CommentManagementTabView: View {
                    }
                AddCommentView()
                    .tabItem {
-                       Image(systemName: "person.crop.circle.fill")
-                       Text("Profile")
+                       Image(systemName: "plus.message.fill")
+                       Text("New Post")
                    }
                ProfileView()
                .tabItem{
-                       Image(systemName: "bag.circle.fill")
-                       Text("Order")
+                       Image(systemName: "person.crop.circle.fill")
+                       Text("Profile")
                    }
                
 
