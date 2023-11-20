@@ -9,13 +9,28 @@ import SwiftUI
 
 struct CommentManagementTabView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        TabView{
+            CommentManagementListView()
+                   .tabItem {
+                       Image(systemName: "house.fill")
+                       Text("Home")
+                   }
+               AddCommentView()
+                   .tabItem {
+                       Image(systemName: "person.crop.circle.fill")
+                       Text("Profile")
+                   }
+               ProfileView()
+               .tabItem{
+                       Image(systemName: "bag.circle.fill")
+                       Text("Order")
+                   }
+               
+
+                   }
+        .accentColor(Color("mainColor"))
+           
+           
     }
 }
 

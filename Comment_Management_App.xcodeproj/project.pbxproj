@@ -14,6 +14,9 @@
 		609CC9E72B0BA7C8008C618B /* Comment_Management_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CC9E62B0BA7C8008C618B /* Comment_Management_AppTests.swift */; };
 		609CC9F12B0BA7C8008C618B /* Comment_Management_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CC9F02B0BA7C8008C618B /* Comment_Management_AppUITests.swift */; };
 		609CC9F32B0BA7C8008C618B /* Comment_Management_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CC9F22B0BA7C8008C618B /* Comment_Management_AppUITestsLaunchTests.swift */; };
+		609CCA002B0BAA05008C618B /* AddCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CC9FF2B0BAA04008C618B /* AddCommentView.swift */; };
+		609CCA022B0BAA1B008C618B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CCA012B0BAA1B008C618B /* ProfileView.swift */; };
+		609CCA042B0BAA85008C618B /* CommentManagementListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609CCA032B0BAA85008C618B /* CommentManagementListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		609CC9EC2B0BA7C8008C618B /* Comment_Management_AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Comment_Management_AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		609CC9F02B0BA7C8008C618B /* Comment_Management_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment_Management_AppUITests.swift; sourceTree = "<group>"; };
 		609CC9F22B0BA7C8008C618B /* Comment_Management_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment_Management_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		609CC9FF2B0BAA04008C618B /* AddCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentView.swift; sourceTree = "<group>"; };
+		609CCA012B0BAA1B008C618B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		609CCA032B0BAA85008C618B /* CommentManagementListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManagementListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,9 @@
 				609CC9D72B0BA7BE008C618B /* CommentManagementTabView.swift */,
 				609CC9D92B0BA7C7008C618B /* Assets.xcassets */,
 				609CC9DB2B0BA7C7008C618B /* Preview Content */,
+				609CC9FF2B0BAA04008C618B /* AddCommentView.swift */,
+				609CCA012B0BAA1B008C618B /* ProfileView.swift */,
+				609CCA032B0BAA85008C618B /* CommentManagementListView.swift */,
 			);
 			path = Comment_Management_App;
 			sourceTree = "<group>";
@@ -257,7 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609CCA022B0BAA1B008C618B /* ProfileView.swift in Sources */,
 				609CC9D82B0BA7BE008C618B /* CommentManagementTabView.swift in Sources */,
+				609CCA002B0BAA05008C618B /* AddCommentView.swift in Sources */,
+				609CCA042B0BAA85008C618B /* CommentManagementListView.swift in Sources */,
 				609CC9D62B0BA7BE008C618B /* Comment_Management_AppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
