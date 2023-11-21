@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CommentManagementTabView: View {
+    
     var body: some View {
         TabView{
-            CommentManagementListView()
+            CommentGridView()
                    .tabItem {
                        Image(systemName: "house.fill")
                        Text("Home")
