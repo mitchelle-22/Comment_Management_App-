@@ -109,6 +109,17 @@ class CommentViewModel : ObservableObject{
             completion(.failure(NSError(domain: "Invalid", code: 0,userInfo: nil)))
             return
         }
-        var re
+        var request = URLRequest(url:url)
+        request.httpMethod = "DELETE"
+        
+        
+        URLSession.shared.dataTask(with: request){
+            data,response,error in if let error = error{
+                completion(.failure(error))
+                return
+            }
+            completion(.success(()))
+                                
+        }.resume()
     }
 }

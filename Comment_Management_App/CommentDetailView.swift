@@ -24,7 +24,7 @@ struct CommentDetailView: View {
                     .cornerRadius(8)
                 
                 Button("Save"){
-                    //                updateComment()
+                       updateComment()
                 }
                 .padding()
             }else{
@@ -41,7 +41,7 @@ struct CommentDetailView: View {
                 }
                 Button("Delete")
                 {
-                    //                    deleteComment()
+                      //deleteComment()
                 }
                 .foregroundColor(.red)
                 .padding()
@@ -52,7 +52,36 @@ struct CommentDetailView: View {
             editCommentText = comment.body
         }
     }
+    func updateComment() {
+            let updatedComment = Comment(id: comment.id, name: comment.name, email: comment.email, body: editCommentText)
+            viewModel.updateComment(updatedComment) { result in
+                switch result {
+                case .success:
+                    isEditing.toggle()
+                case .failure(let error):
+                    print("Failed to update comment: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+//    func deleteComment() {
+//        viewModel.deleteComment(comment) { result in
+//            switch result {
+//            case .success:
+//                // Pop to the previous view after deletion
+//                DispatchQueue.main.async {
+//                    // Navigate back to the previous view
+//                    presentationMode.wrappedValue.dismiss()
+//                }
+//            case .failure(let error):
+//                print("Failed to delete comment: \(error.localizedDescription)")
+//            }
+//        }
+//    }
+
 }
+
+
 
 #Preview {
     CommentDetailView(comment: Comment(id: 1, name: "John", email: "john@example.com", body: "This is a comment"))
