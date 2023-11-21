@@ -9,8 +9,10 @@ import SwiftUI
 
 class CommentViewModel : ObservableObject{
     @Published var comments: [Comment] = []
+    @Published var isLoading : Bool = false
     
     func fetchComments(){
+        isLoading = true
         
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments")
         else{
@@ -25,12 +27,21 @@ class CommentViewModel : ObservableObject{
                 let fetchedComments = try JSONDecoder().decode([Comment].self, from: data)
                 DispatchQueue.main.async{
                     self.comments = fetchedComments
+                    self.isLoading = false
                 }
             }catch{
                 print("Error decoding comments:\(error)")
+                DispatchQueue.main.async{
+                    self.isLoading = false
+                }
+                
             }
         }.resume()
     }
+    
+    func addCommentToTop(comment: Comment) {
+           comments.insert(comment, at: 0) // Insert the new comment at the beginning of the array
+       }
     
     func postComment(comment: Comment, completion: @escaping (Result<[Comment], Error>) -> Void) {
             guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments") else {
@@ -56,6 +67,7 @@ class CommentViewModel : ObservableObject{
 
                     // Fetch comments again after posting to get the updated list
                     self.fetchComments()
+                    self.addCommentToTop(comment: comment)
                     
                     completion(.success(self.comments))
                 }.resume()

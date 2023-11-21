@@ -15,19 +15,25 @@ struct CommentGridView: View {
     var body: some View {
         NavigationView{
             ScrollView{
-                LazyVGrid(columns: [GridItem(.flexible())],spacing: 10){
-                    ForEach(viewModel.comments){
-                        comment in CommentView(comment: comment)
+                if viewModel.isLoading{
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding()
+                }else{
+                    LazyVGrid(columns: [GridItem(.flexible())],spacing: 10){
+                        ForEach(viewModel.comments.reversed()){
+                            comment in CommentView(comment: comment)
+                            
+                                .padding(12)
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(8)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: .infinity,alignment:.leading)
+                        }
                         
-                            .padding(12)
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(8)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: .infinity,alignment:.leading)
                     }
-                    
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Comments")
             .onAppear{
