@@ -32,33 +32,35 @@ class CommentViewModel : ObservableObject{
         }.resume()
     }
     
-    func postComment(comment: Comment,completion: @escaping(Error?)->Void)
-    {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments")else{
-            completion(NSError(domain: "Invalid URL", code: 0,userInfo: nil))
-            return
-            
+    func postComment(comment: Comment, completion: @escaping (Result<[Comment], Error>) -> Void) {
+            guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments") else {
+                completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            do {
+                let jsonData = try JSONEncoder().encode(comment)
+                request.httpBody = jsonData
+
+                URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    // Fetch comments again after posting to get the updated list
+                    self.fetchComments()
+                    
+                    completion(.success(self.comments))
+                }.resume()
+            } catch {
+                completion(.failure(error))
+            }
         }
-        
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do{
-            let jsonData = try JSONEncoder().encode(comment)
-            request.httpBody = jsonData
-            
-            URLSession.shared.dataTask(with: request){
-                data,response,error in
-                if let error = error{
-                    completion(error)
-                    return
-                }
-                completion(nil)
-            }.resume()
-        }catch{
-            completion(error)
-        }
-    }
 }
