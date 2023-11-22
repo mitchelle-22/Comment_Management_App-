@@ -10,17 +10,28 @@ import SwiftUI
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
     let postId : Int
-    let comment : Comment
+ 
     var body: some View {
-        VStack{
-            Text(comment.title)
-               
-        }
+        VStack {
+                    if let comment = viewModel.comment {
+                        Text(comment.title)
+                        Text(comment.body)
+                    } else {
+                        Text("Loading...")
+                            .onAppear {
+                                viewModel.getCommentDetails(postId: postId)
+                            }
+                    }
+                }
+                .onAppear {
+                    viewModel.getCommentDetails(postId: postId)
+                }
+            }
         
         
     }
-}
+
 
 #Preview {
-    PostDetailView()
+    PostDetailView(postId: 1)
 }
