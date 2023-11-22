@@ -52,9 +52,9 @@ struct CommentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(comment.email)
-                .font(.caption2)
-            Text(comment.name)
+//            Text(comment.email)
+//                .font(.caption2)
+            Text(comment.title)
                 .font(.headline)
             Text(comment.body)
                 .font(.subheadline)

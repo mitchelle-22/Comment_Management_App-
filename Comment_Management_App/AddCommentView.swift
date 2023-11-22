@@ -10,7 +10,7 @@ import SwiftUI
 struct AddCommentView: View {
     @State private var newCommenText: String = ""
     @StateObject var viewModel = CommentViewModel()
-    @State private var isShowingUpdatedComment = false
+//    @State private var isShowingUpdatedComment = false
     @State private var postError: String?
     @State private var showAlert = false
     
@@ -28,14 +28,14 @@ struct AddCommentView: View {
                     .cornerRadius(8)
                 
                 Button(action: {
-                    let newComment = Comment(id: 0,name:"Michelle",email:"mich@gmail.com",body: newCommenText)
+                    let newComment = Comment(id: 0,userId: 0,title:"Michelle",body: newCommenText)
                     viewModel.postComment(comment: newComment){
                         result in switch result{
                         case.success:
                             print("Comment poosted successfully!")
                             newCommenText = ""
                             postError = nil
-                            isShowingUpdatedComment.toggle()
+//                            isShowingUpdatedComment.toggle()
                             showAlert = true
                         case.failure(let error):
                             print("Error posting comment:\(error.localizedDescription)")
@@ -51,15 +51,15 @@ struct AddCommentView: View {
                         .cornerRadius(8)
                 }
                 .padding()
-                if isShowingUpdatedComment {
-                    // Display updated comments after posting
-                    Text("Fetching updated comments...")
-                        .foregroundColor(.gray)
-                        .padding(.top, 8)
-                        .onAppear {
-                            viewModel.fetchComments() // Fetch updated comments
-                        }
-                }
+//                if isShowingUpdatedComment {
+//                    // Display updated comments after posting
+//                    Text("Fetching updated comments...")
+//                        .foregroundColor(.gray)
+//                        .padding(.top, 8)
+//                        .onAppear {
+//                            viewModel.fetchComments() // Fetch updated comments
+//                        }
+//                }
                 if let error = postError{
                     Text(error)
                         .foregroundColor(.red)

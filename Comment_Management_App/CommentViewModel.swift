@@ -14,7 +14,7 @@ class CommentViewModel : ObservableObject{
     func fetchComments(){
         isLoading = true
         
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments")
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts")
         else{
             return
         }

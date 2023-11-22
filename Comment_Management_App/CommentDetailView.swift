@@ -53,7 +53,7 @@ struct CommentDetailView: View {
         }
     }
     func updateComment() {
-        let updatedComment = Comment(id: comment.id, name: comment.name, email: comment.email, body: editCommentText)
+        let updatedComment = Comment(id:comment.id, userId: comment.userId, title: comment.title, body: editCommentText)
             viewModel.updateComment(updatedComment) { result in
                 switch result {
                 case .success:
@@ -84,5 +84,5 @@ struct CommentDetailView: View {
 
 
 #Preview {
-    CommentDetailView(comment: Comment(id: 1, name: "John", email: "john@example.com", body: "This is a comment"))
+    CommentDetailView(comment: Comment(id: 1,userId: 1, title: "Heat wave", body: "This is a comment"))
 }
