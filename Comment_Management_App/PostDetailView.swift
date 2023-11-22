@@ -9,7 +9,9 @@ import SwiftUI
 
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
+   
     let id : Int
+    
  
     var body: some View {
         VStack {
@@ -20,6 +22,35 @@ struct PostDetailView: View {
                         Text(comment.body)
                             .fontWeight(.regular)
                             .padding()
+                        
+                        HStack {
+                            // Edit Button
+                            Button(action: {
+                                // Handle edit functionality
+                                // For now, let's print a message
+                                print("Edit button tapped")
+                            }) {
+                                Text("Edit")
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .background(Color.blue)
+                                    .cornerRadius(8)
+                            }
+                            .padding()
+                            
+                            // Delete Button
+                            Button(action: {
+                                // Handle delete functionality
+//                                viewModel.deleteComment(commentId: comment.id)
+                            }) {
+                                Text("Delete")
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .background(Color.red)
+                                    .cornerRadius(8)
+                            }
+                            .padding()
+                        }
                     } else {
                         Text("Loading...")
                             .onAppear {
@@ -31,7 +62,6 @@ struct PostDetailView: View {
                     viewModel.getCommentDetails(id: id)
                 }
             }
-        
         
     }
 
