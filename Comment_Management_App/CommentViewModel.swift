@@ -44,7 +44,7 @@ class CommentViewModel : ObservableObject{
     }
     
     func postComment(comment: Comment, completion: @escaping (Result<[Comment], Error>) -> Void) {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments") else {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct Comment:Codable,Identifiable{
     
-    
+//    let postId : Int
     let id : Int
+//    let userId: Int
     let name : String
     let email : String
     let body : String

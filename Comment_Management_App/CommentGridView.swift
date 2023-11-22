@@ -21,7 +21,7 @@ struct CommentGridView: View {
                         .padding()
                 }else{
                     LazyVGrid(columns: [GridItem(.flexible())],spacing: 10){
-                        ForEach(viewModel.comments.reversed()){
+                        ForEach(viewModel.comments){
                             comment in CommentView(comment: comment)
                             
                                 .padding(12)
@@ -52,6 +52,8 @@ struct CommentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
+            Text(comment.email)
+                .font(.caption2)
             Text(comment.name)
                 .font(.headline)
             Text(comment.body)
