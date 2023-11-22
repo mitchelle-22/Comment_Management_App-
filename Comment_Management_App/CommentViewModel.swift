@@ -42,9 +42,9 @@ class CommentViewModel : ObservableObject{
     
     let apiURL = URL(string: "https://jsonplaceholder.typicode.com/posts/")!
     
-    func getCommentDetails(postId : Int)
+    func getCommentDetails(id : Int)
     {
-        let requestURL = URL(string: "\(apiURL)/\(postId)")!
+        let requestURL = URL(string: "\(apiURL)/\(id)")!
         
         URLSession.shared.dataTask(with: requestURL) { data, response, error in
                   if let error = error {

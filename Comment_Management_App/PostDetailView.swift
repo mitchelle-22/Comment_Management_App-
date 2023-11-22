@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
-    let postId : Int
+    let id : Int
  
     var body: some View {
         VStack {
@@ -23,12 +23,12 @@ struct PostDetailView: View {
                     } else {
                         Text("Loading...")
                             .onAppear {
-                                viewModel.getCommentDetails(postId: postId)
+                                viewModel.getCommentDetails(id: id)
                             }
                     }
                 }
                 .onAppear {
-                    viewModel.getCommentDetails(postId: postId)
+                    viewModel.getCommentDetails(id: id)
                 }
             }
         
@@ -37,5 +37,5 @@ struct PostDetailView: View {
 
 
 #Preview {
-    PostDetailView(postId: 1)
+    PostDetailView(id: 1)
 }
