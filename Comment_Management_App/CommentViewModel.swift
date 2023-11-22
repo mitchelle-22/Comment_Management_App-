@@ -10,7 +10,8 @@ import SwiftUI
 class CommentViewModel : ObservableObject{
     @Published var comments: [Comment] = []
     @Published var isLoading : Bool = false
-    
+    @Published var comment : Comment?
+ 
     func fetchComments(){
         isLoading = true
         
@@ -38,6 +39,43 @@ class CommentViewModel : ObservableObject{
             }
         }.resume()
     }
+    
+    let apiURL = URL(string: "https://jsonplaceholder.typicode.com/posts/")!
+    
+    func getCommentDetails(postId : Int)
+    {
+        let requestURL = URL(string: "\(apiURL)/\(postId)")!
+        
+        URLSession.shared.dataTask(with: requestURL) { data, response, error in
+                  if let error = error {
+                      print("Error fetching data: \(error)")
+                      return
+                  }
+                  
+                  guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
+                        let data = data else {
+                      print("Invalid response")
+                      return
+                  }
+                  
+                  do {
+                      let decodedData = try JSONDecoder().decode(Comment.self, from: data)
+                      DispatchQueue.main.async {
+                          self.comment = decodedData
+                      }
+                  } catch {
+                      print("Error decoding data: \(error)")
+                  }
+              }.resume()
+    }
+  
+       
+    
+    
+    
+    
+    
+    
     
     func addCommentToTop(comment: Comment) {
         comments.insert(comment, at: 0) // Insert the new comment at the beginning of the array
