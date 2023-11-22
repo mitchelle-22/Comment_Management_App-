@@ -15,7 +15,11 @@ struct PostDetailView: View {
         VStack {
                     if let comment = viewModel.comment {
                         Text(comment.title)
+                            .fontWeight(.bold)
+                            .padding()
                         Text(comment.body)
+                            .fontWeight(.regular)
+                            .padding()
                     } else {
                         Text("Loading...")
                             .onAppear {

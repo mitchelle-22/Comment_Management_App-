@@ -21,16 +21,19 @@ struct CommentGridView: View {
                         .padding()
                 }else{
                     LazyVGrid(columns: [GridItem(.flexible())],spacing: 10){
-                        ForEach(viewModel.comments){
-                            comment in CommentView(comment: comment)
-                            
-                                .padding(12)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(8)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: .infinity,alignment:.leading)
+                        ForEach(viewModel.comments) { comment in
+                            NavigationLink(
+                                destination: PostDetailView(postId: comment.userId),
+                                label: {
+                                    CommentView(comment: comment)
+                                        .padding(12)
+                                        .background(Color.gray.opacity(0.1))
+                                        .cornerRadius(8)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                }
+                            )
                         }
-                        
                     }
                     .padding()
                 }
@@ -52,10 +55,11 @@ struct CommentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-//            Text(comment.email)
-//                .font(.caption2)
+         
             Text(comment.title)
                 .font(.headline)
+                .foregroundColor(.black)
+            
             Text(comment.body)
                 .font(.subheadline)
                 .foregroundColor(.gray)
