@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
+    @State private var editiedTitle = ""
+    @State private var editedBody = ""
    
     let id : Int
     

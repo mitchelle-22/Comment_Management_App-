@@ -69,17 +69,6 @@ class CommentViewModel : ObservableObject{
               }.resume()
     }
   
-       
-    
-    
-    
-    
-    
-    
-    
-    func addCommentToTop(comment: Comment) {
-        comments.insert(comment, at: 0) // Insert the new comment at the beginning of the array
-    }
     
     func postComment(comment: Comment, completion: @escaping (Result<[Comment], Error>) -> Void) {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
@@ -106,7 +95,7 @@ class CommentViewModel : ObservableObject{
                 
                 // Fetch comments again after posting to get the updated list
                 self.fetchComments()
-                self.addCommentToTop(comment: comment)
+              
                 
                 completion(.success(self.comments))
             }.resume()
@@ -115,49 +104,62 @@ class CommentViewModel : ObservableObject{
         }
     }
     
-    func updateComment(_ comment: Comment,completion: @escaping(Result<Void, Error>)->Void){
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments/\(comment.id)")else{
-            completion(.failure(NSError(domain:"Invalid URL",code:0,userInfo: nil)))
-            return
-            
-        }
+    func updateComment(id:Int,newTitle:String,newBody:String)
+    {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts/\(id)")else{return}
+        
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do{
-            let jsonData = try JSONEncoder().encode(comment)
-            request.httpBody = jsonData
-            
-            URLSession.shared.dataTask(with: request){
-                data,response,error in
-                if let error = error{
-                    completion(.failure(error))
-                    return
+                request.httpMethod = "PUT" // or "PATCH"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let updatedComment = Comment(id: id, userId: 1, title: newTitle, body: newBody)
+                
+                do {
+                    let jsonEncoder = JSONEncoder()
+                    let jsonData = try jsonEncoder.encode(updatedComment)
+                    request.httpBody = jsonData
+                } catch {
+                    print("Error encoding comment: \(error)")
                 }
-                completion(.success(()))
-            }.resume()
-        }catch{
-            completion(.failure(error))
-        }
-    }
-    
-    func deleteComment(_ comment: Comment,completion:@escaping(Result<Void,Error>)->Void){
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments/\(comment.id)")else{
-            completion(.failure(NSError(domain: "Invalid", code: 0,userInfo: nil)))
-            return
-        }
-        var request = URLRequest(url:url)
-        request.httpMethod = "DELETE"
-        
-        
-        URLSession.shared.dataTask(with: request){
-            data,response,error in if let error = error{
-                completion(.failure(error))
-                return
+                
+                // Execute the request
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let error = error {
+                        print("Error updating comment: \(error)")
+                        return
+                    }
+                    
+                    // Handle response if needed
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print("Response status code: \(httpResponse.statusCode)")
+                    }
+                    
+                    // Update local data if needed
+                    // This won't reflect actual changes in JSONPlaceholder
+                    DispatchQueue.main.async {
+                        self.comment = updatedComment
+                    }
+                }.resume()
             }
-            completion(.success(()))
-                                
-        }.resume()
     }
-}
+
+    
+//    func deleteComment(_ comment: Comment,completion:@escaping(Result<Void,Error>)->Void){
+//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments/\(comment.id)")else{
+//            completion(.failure(NSError(domain: "Invalid", code: 0,userInfo: nil)))
+//            return
+//        }
+//        var request = URLRequest(url:url)
+//        request.httpMethod = "DELETE"
+//        
+//        
+//        URLSession.shared.dataTask(with: request){
+//            data,response,error in if let error = error{
+//                completion(.failure(error))
+//                return
+//            }
+//            completion(.success(()))
+//                                
+//        }.resume()
+//    }
+//}

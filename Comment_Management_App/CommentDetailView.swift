@@ -24,7 +24,7 @@ struct CommentDetailView: View {
                     .cornerRadius(8)
                 
                 Button("Save"){
-                       updateComment()
+//                       updateComment()
                 }
                 .padding()
             }else{
@@ -52,17 +52,17 @@ struct CommentDetailView: View {
             editCommentText = comment.body
         }
     }
-    func updateComment() {
-        let updatedComment = Comment(id:comment.id, userId: comment.userId, title: comment.title, body: editCommentText)
-            viewModel.updateComment(updatedComment) { result in
-                switch result {
-                case .success:
-                    isEditing.toggle()
-                case .failure(let error):
-                    print("Failed to update comment: \(error.localizedDescription)")
-                }
-            }
-        }
+//    func updateComment() {
+//        let updatedComment = Comment(id:comment.id, userId: comment.userId, title: comment.title, body: editCommentText)
+//            viewModel.updateComment(updatedComment) { result in
+//                switch result {
+//                case .success:
+//                    isEditing.toggle()
+//                case .failure(let error):
+//                    print("Failed to update comment: \(error.localizedDescription)")
+//                }
+//            }
+//        }
         
 //    func deleteComment() {
 //        viewModel.deleteComment(comment) { result in
