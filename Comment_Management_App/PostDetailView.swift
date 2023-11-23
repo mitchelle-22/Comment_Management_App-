@@ -38,7 +38,7 @@ struct PostDetailView: View {
                             }
                             .sheet(isPresented: $isEditing)
                             {
-                                
+                                EditPostDetailView(comment: comment, viewModel: viewModel)
                             }
                             .padding()
                             
