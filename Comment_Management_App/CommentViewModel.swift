@@ -143,23 +143,26 @@ class CommentViewModel : ObservableObject{
             }
     }
 
+func deleteComment(id:Int,completion:@escaping(Result<Void,Error>)->Void){
+let deleteURL = URL(string: "https://jsonplaceholder.typicode.com/posts/\(id)")!
+
+var request = URLRequest(url: deleteURL)
+request.httpMethod = "DELETE"
+
+URLSession.shared.dataTask(with: request) { data, response, error in
+    if let error = error {
+        completion(.failure(error))
+        return
+    }
     
-//    func deleteComment(_ comment: Comment,completion:@escaping(Result<Void,Error>)->Void){
-//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments/\(comment.id)")else{
-//            completion(.failure(NSError(domain: "Invalid", code: 0,userInfo: nil)))
-//            return
-//        }
-//        var request = URLRequest(url:url)
-//        request.httpMethod = "DELETE"
-//        
-//        
-//        URLSession.shared.dataTask(with: request){
-//            data,response,error in if let error = error{
-//                completion(.failure(error))
-//                return
-//            }
-//            completion(.success(()))
-//                                
-//        }.resume()
-//    }
-//}
+    // Check for HTTP status code to ensure successful deletion
+    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+        completion(.success(())) // Deletion successful
+    } else {
+        let error = NSError(domain: "DeleteErrorDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to delete"])
+        completion(.failure(error)) // Deletion failed
+    }
+ }.resume()
+
+    }
+

@@ -10,6 +10,7 @@ import SwiftUI
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
     @State private var isEditing = false
+    @State private var comments: [Comment] = []
    
    
     let id : Int
@@ -46,6 +47,19 @@ struct PostDetailView: View {
                             Button(action: {
                                 // Handle delete functionality
 //                                viewModel.deleteComment(commentId: comment.id)
+                                if let index = comments.firstIndex(where: {$0.id == comment.id}) {
+                                    comments.remove(at: index)
+                                }
+                                deleteComment(id: comment.id){
+                                    result in switch result {
+                                    case .success:
+                                        // Handle success
+                                        print("Post deleted successfully.")
+                                    case .failure(let error):
+                                        // Handle failure
+                                        print("Failed to delete post: \(error.localizedDescription)")
+                                    }
+                                }
                             }) {
                                 Text("Delete")
                                     .padding()
