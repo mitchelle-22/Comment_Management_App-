@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
-    @State private var editiedTitle = ""
-    @State private var editedBody = ""
+    @State private var isEditing = false
+   
    
     let id : Int
     
@@ -28,15 +28,17 @@ struct PostDetailView: View {
                         HStack {
                             // Edit Button
                             Button(action: {
-                                // Handle edit functionality
-                                // For now, let's print a message
-                                print("Edit button tapped")
+                               isEditing = true
                             }) {
                                 Text("Edit")
                                     .padding()
                                     .foregroundColor(.white)
                                     .background(Color.blue)
                                     .cornerRadius(8)
+                            }
+                            .sheet(isPresented: $isEditing)
+                            {
+                                
                             }
                             .padding()
                             
