@@ -16,6 +16,10 @@ struct EditPostDetailView: View {
     
     @StateObject var viewModel = CommentViewModel()
     
+    //Alert state variables
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     init(comment: Comment,viewModel: CommentViewModel)
     {
         self.comment = comment
@@ -34,11 +38,19 @@ struct EditPostDetailView: View {
             {
                 viewModel.updateComment(id: comment.id, newTitle: editedTitle, newBody: editedBody)
                 
+                //Dismiss the view after saving
                 presentationMode.wrappedValue.dismiss()
+                
+                // Show the alert after successfully update
+                showAlert = true
+                alertMessage = "Updated Successfully!"
             }
             .padding()
         }
         .padding()
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Success"),message: Text(alertMessage),dismissButton: .default(Text("OK")))
+        }
     }
 }
 
