@@ -29,7 +29,7 @@ struct CommentManagementTabView: View {
                
 
                    }
-        .accentColor(Color("mainColor"))
+        .accentColor(Color("secColor"))
            
            
     }

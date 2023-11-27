@@ -20,17 +20,17 @@ struct AddCommentView: View {
             VStack{
                 Text("Title:")
                     .font(.headline)
-                TextField("Title", text: $newTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                CustomTextField(text: $newTitle)
+               .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(maxWidth: .infinity)
                 
                 Text("Write your comment:")
                     .font(.headline)
-                    .padding()
+                    .padding(.top,8)
                 
-                TextEditor(text: $newCommenText)
-                    .frame(height: 150)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
+                CustomTextEditor(text: $newCommenText)
+                                .frame(height: 150)
+                                .padding(.horizontal)
                 
                 Button(action: {
                     let newComment = Comment(id: 0,userId: 0,title: newTitle,body: newCommenText)
@@ -53,11 +53,11 @@ struct AddCommentView: View {
                     Text("Post")
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(Color.blue)
+                        .background(Color(.sec))
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-                .padding()
+                .padding(.horizontal,40)
                 if let error = postError{
                     Text(error)
                         .foregroundColor(.red)
@@ -65,6 +65,7 @@ struct AddCommentView: View {
                 }
             }
             .navigationTitle("New Post")
+            .foregroundColor(Color(.tertiary))
             .padding()
             .onAppear{
                 viewModel.fetchComments()
@@ -74,6 +75,43 @@ struct AddCommentView: View {
                 
             }
         }
+    }
+}
+
+struct CustomTextField : View {
+    @Binding var text: String
+    var body: some View {
+        ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color.gray.opacity(0.1)))
+                        .frame(height: 36) // Adjust height
+                    
+                    TextField("", text: $text)
+                        .padding(8)
+                        .foregroundColor(Color.primary) // Set text color
+                        .font(.body) // Set font
+      }
+    }
+}
+struct CustomTextEditor :View {
+    @Binding var text:String
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+                   RoundedRectangle(cornerRadius: 8)
+                       .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                       .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color.gray.opacity(0.1)))
+            
+                  TextField("", text: $text)
+                           .padding(8)
+                           .foregroundColor(Color.primary) // Set text color
+                           .font(.body)
+                   
+                   TextEditor(text: $text)
+                       .padding(8)
+                       .background(Color.clear)
+               }
+        .padding()
     }
 }
 

@@ -11,6 +11,7 @@ struct CommentGridView: View {
     
     @StateObject var viewModel = CommentViewModel()
     
+  
     
     
     var body: some View {
@@ -28,7 +29,7 @@ struct CommentGridView: View {
                                 label: {
                                     CommentView(comment: comment)
                                         .padding(12)
-                                        .background(Color.gray.opacity(0.1))
+                                        .background(Color.brown.opacity(0.1))
                                         .cornerRadius(8)
                                         .fixedSize(horizontal: false, vertical: true) // Keep the width flexible while constraining the height
                                         .frame(maxWidth: .infinity, alignment: .leading) // Align to leading edge
@@ -44,7 +45,9 @@ struct CommentGridView: View {
                 }
             }
             .navigationTitle("Comments")
+            
             .onAppear{
+             
                 viewModel.fetchComments()
             }
         }
@@ -63,11 +66,11 @@ struct CommentView: View {
          
             Text(comment.title)
                 .font(.headline)
-                .foregroundColor(.black)
+                .foregroundColor(Color(.tertiary))
             
             Text(comment.body)
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                .foregroundColor(Color(.sec))
                 .lineLimit(2)
         }
     }
