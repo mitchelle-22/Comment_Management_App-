@@ -25,7 +25,7 @@ struct CommentGridView: View {
                     LazyVGrid(columns: [GridItem(.flexible())], spacing: 10) {
                         ForEach(viewModel.comments) { comment in
                             NavigationLink(
-                                destination: PostDetailView(id: comment.id),
+                                destination: PostDetailView(viewModel: CommentViewModel(), id: comment.id),
                                 label: {
                                     CommentView(comment: comment)
                                         .padding(12)

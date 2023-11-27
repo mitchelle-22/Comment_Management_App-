@@ -36,7 +36,6 @@ struct PostDetailView: View {
                               Text(comment.body)
                                   .font(.body)
                                   .fontWeight(.regular)
-                                  .foregroundColor(Color(.sec))
                                   .padding()
 
                               HStack(spacing: 20) {
@@ -54,6 +53,7 @@ struct PostDetailView: View {
                                   .sheet(isPresented: $isEditing) {
                                       EditPostDetailView(comment: comment, viewModel: viewModel)
                                   }
+                              
 
                                   // Delete Button
                                   Button(action: {
@@ -88,9 +88,9 @@ struct PostDetailView: View {
                               }
                       }
                   }
-                 
+//                  Spacer() // Pushes content to the top
               }
-              .navigationBarTitle("")
+              .navigationBarTitle("Post Detail")
               .alert(isPresented: $showAlert) {
                   Alert(
                       title: Text("Deleted"),

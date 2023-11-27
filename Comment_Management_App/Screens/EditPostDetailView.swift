@@ -28,30 +28,47 @@ struct EditPostDetailView: View {
     }
     
     var body: some View {
-        VStack{
-          TextField("Title",text: $editedTitle)
-                .padding()
-            TextField("Body",text: $editedBody)
-                .padding()
-            
-            Button("Save")
-            {
-                viewModel.updateComment(id: comment.id, newTitle: editedTitle, newBody: editedBody)
-                
-                //Dismiss the view after saving
-                presentationMode.wrappedValue.dismiss()
-                
-                // Show the alert after successfully update
-                showAlert = true
-                alertMessage = "Updated Successfully!"
-            }
-            .padding()
-        }
-        .padding()
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Success"),message: Text(alertMessage),dismissButton: .default(Text("OK")))
-        }
-    }
+        VStack(spacing:12) {
+                  TextField("Title", text: $editedTitle)
+                   .font(.title2)
+                   .fontWeight(.bold)
+                   .foregroundColor(Color(.tertiary))
+                   .multilineTextAlignment(.leading)
+                   .lineLimit(nil)
+                   .padding()
+
+                  TextField("Body", text: $editedBody)
+                   .font(.body)
+                   .fontWeight(.regular)
+                   .foregroundColor(Color(.tertiary))
+                   .multilineTextAlignment(.leading)
+                   .lineLimit(nil)
+                   .frame(height: 150)
+                   .padding(.horizontal)
+
+
+                  Button("Save") {
+                      viewModel.updateComment(id: comment.id, newTitle: editedTitle, newBody: editedBody)
+
+                      // Dismiss the view after saving
+                      presentationMode.wrappedValue.dismiss()
+
+                      // Show the alert after successfully updating
+                      showAlert = true
+                      alertMessage = "Updated Successfully!"
+                  }
+                  .foregroundColor(.white)
+                  .padding()
+                  .frame(maxWidth: .infinity)
+                  .background(Color(.sec))
+                  .cornerRadius(8)
+                  .padding()
+              }
+              .padding()
+              .alert(isPresented: $showAlert) {
+                  Alert(title: Text("Success"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+              }
+          }
 }
 
 #Preview {
