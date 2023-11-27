@@ -22,84 +22,90 @@ struct PostDetailView: View {
     
     
     var body: some View {
-        NavigationView{
-            VStack {
-                
-                if !isDeleted{
-                    if let comment = viewModel.comment {
-                        Text(comment.title)
-                            .fontWeight(.bold)
-                            .padding()
-                        Text(comment.body)
-                            .fontWeight(.regular)
-                            .padding()
-                        
-                        HStack {
-                            // Edit Button
-                            Button(action: {
-                                isEditing = true
-                            }) {
-                                Text("Edit")
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
-                            }
-                            .sheet(isPresented: $isEditing)
-                            {
-                                EditPostDetailView(comment: comment, viewModel: viewModel)
-                            }
-                            .padding()
-                            
-                            // Delete Button
-                            Button(action: {
-                                deleteComment(id: comment.id){
-                                    result in switch result {
-                                    case .success:
-                                        isDeleted = true
-                                        showAlert = true
-                                        redirectToCommentGridView = true
-                                        // Handle success
-                                        print("Post deleted successfully.")
-                                    case .failure(let error):
-                                        // Handle failure
-                                        print("Failed to delete post: \(error.localizedDescription)")
-                                    }
-                                }
-                            }) {
-                                Text("Delete")
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background(Color.red)
-                                    .cornerRadius(8)
-                            }
-                            
-                            .padding()
-                        }
-                        
-                    } else {
-                        Text("Loading...")
-                            .onAppear {
-                                viewModel.getCommentDetails(id: id)
-                            }
-                    }
-                }
-                
-            }
-            
-            .onAppear {
-                viewModel.getCommentDetails(id: id)
-            }
-            .navigationBarTitle("Post Detail")
-            .background(
-                NavigationLink(destination: CommentGridView(),
-                               isActive: $redirectToCommentGridView){
-                                   EmptyView()
-                                   
-                               }
-                    .isDetailLink(false)
-                    .opacity(0)
-            )
+        NavigationView {
+              VStack {
+                  if !isDeleted {
+                      if let comment = viewModel.comment {
+                          VStack(spacing: 12) {
+                              Text(comment.title)
+                                  .font(.title2)
+                                  .fontWeight(.bold)
+                                  .foregroundColor(Color(.tertiary))
+                                  .padding()
+
+                              Text(comment.body)
+                                  .font(.body)
+                                  .fontWeight(.regular)
+                                  .foregroundColor(Color(.sec))
+                                  .padding()
+
+                              HStack(spacing: 20) {
+                                  // Edit Button
+                                  Button(action: {
+                                      isEditing = true
+                                  }) {
+                                      Text("Edit")
+                                          .foregroundColor(.white)
+                                          .padding()
+                                          .frame(maxWidth: .infinity)
+                                          .background(Color(.sec))
+                                          .cornerRadius(8)
+                                  }
+                                  .sheet(isPresented: $isEditing) {
+                                      EditPostDetailView(comment: comment, viewModel: viewModel)
+                                  }
+
+                                  // Delete Button
+                                  Button(action: {
+                                      deleteComment(id: comment.id) { result in
+                                          switch result {
+                                          case .success:
+                                              isDeleted = true
+                                              showAlert = true
+                                              redirectToCommentGridView = true
+                                              // Handle success
+                                              print("Post deleted successfully.")
+                                          case .failure(let error):
+                                              // Handle failure
+                                              print("Failed to delete post: \(error.localizedDescription)")
+                                          }
+                                      }
+                                  }) {
+                                      Text("Delete")
+                                          .foregroundColor(.white)
+                                          .padding()
+                                          .frame(maxWidth: .infinity)
+                                          .background(Color(.tertiary))
+                                          .cornerRadius(8)
+                                  }
+                              }
+                              .padding(.horizontal, 20)
+                          }
+                      } else {
+                          Text("Loading...")
+                              .onAppear {
+                                  viewModel.getCommentDetails(id: id)
+                              }
+                      }
+                  }
+                 
+              }
+              .navigationBarTitle("")
+              .alert(isPresented: $showAlert) {
+                  Alert(
+                      title: Text("Deleted"),
+                      message: Text("Post deleted successfully"),
+                      dismissButton: .default(Text("OK"))
+                  )
+              }
+              .background(
+                  NavigationLink(destination: CommentGridView(), isActive: $redirectToCommentGridView) {
+                      EmptyView()
+                  }
+                  .isDetailLink(false)
+                  .opacity(0)
+              )
+          }
             .alert(isPresented: $showAlert) {
                 
                 Alert(title: Text("Deleted"), message: Text("Post deleted successfully"), dismissButton: .default(Text("OK")))
@@ -108,7 +114,7 @@ struct PostDetailView: View {
         }
         }
         
-    }
+    
 
 #Preview {
     PostDetailView(viewModel:CommentViewModel(),id: 1)
