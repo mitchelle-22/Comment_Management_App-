@@ -11,13 +11,21 @@ struct PostDetailView: View {
     @StateObject var viewModel = CommentViewModel()
     @State private var isEditing = false
     @State private var comments: [Comment] = []
-   
-   
-    let id : Int
+    @Environment(\.presentationMode) var presenationMode
     
- 
+    @State private var isDeleted = false
+    
+    
+    let id : Int
+    @State private var redirectToCommentGridView = false
+    @State private var showAlert = false
+    
+    
     var body: some View {
-        VStack {
+        NavigationView{
+            VStack {
+                
+                if !isDeleted{
                     if let comment = viewModel.comment {
                         Text(comment.title)
                             .fontWeight(.bold)
@@ -29,7 +37,7 @@ struct PostDetailView: View {
                         HStack {
                             // Edit Button
                             Button(action: {
-                               isEditing = true
+                                isEditing = true
                             }) {
                                 Text("Edit")
                                     .padding()
@@ -45,14 +53,12 @@ struct PostDetailView: View {
                             
                             // Delete Button
                             Button(action: {
-                                // Handle delete functionality
-//                                viewModel.deleteComment(commentId: comment.id)
-                                if let index = comments.firstIndex(where: {$0.id == comment.id}) {
-                                    comments.remove(at: index)
-                                }
                                 deleteComment(id: comment.id){
                                     result in switch result {
                                     case .success:
+                                        isDeleted = true
+                                        showAlert = true
+                                        redirectToCommentGridView = true
                                         // Handle success
                                         print("Post deleted successfully.")
                                     case .failure(let error):
@@ -67,8 +73,10 @@ struct PostDetailView: View {
                                     .background(Color.red)
                                     .cornerRadius(8)
                             }
+                            
                             .padding()
                         }
+                        
                     } else {
                         Text("Loading...")
                             .onAppear {
@@ -76,14 +84,32 @@ struct PostDetailView: View {
                             }
                     }
                 }
-                .onAppear {
-                    viewModel.getCommentDetails(id: id)
-                }
+                
             }
+            
+            .onAppear {
+                viewModel.getCommentDetails(id: id)
+            }
+            .navigationBarTitle("Post Detail")
+            .background(
+                NavigationLink(destination: CommentGridView(),
+                               isActive: $redirectToCommentGridView){
+                                   EmptyView()
+                                   
+                               }
+                    .isDetailLink(false)
+                    .opacity(0)
+            )
+            .alert(isPresented: $showAlert) {
+                
+                Alert(title: Text("Deleted"), message: Text("Post deleted successfully"), dismissButton: .default(Text("OK")))
+                            
+            }
+        }
+        }
         
     }
 
-
 #Preview {
-    PostDetailView(id: 1)
+    PostDetailView(viewModel:CommentViewModel(),id: 1)
 }

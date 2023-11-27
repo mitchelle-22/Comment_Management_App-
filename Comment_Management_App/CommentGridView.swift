@@ -10,7 +10,7 @@ import SwiftUI
 struct CommentGridView: View {
     
     @StateObject var viewModel = CommentViewModel()
-    @State
+    
     
     
     var body: some View {
