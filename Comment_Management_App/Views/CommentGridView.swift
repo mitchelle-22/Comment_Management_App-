@@ -21,7 +21,7 @@ struct CommentGridView: View {
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 }else{
-                    LazyVGrid(columns: [GridItem(.flexible())],spacing: 10){
+                    LazyVGrid(columns: [GridItem(.flexible())], spacing: 10) {
                         ForEach(viewModel.comments) { comment in
                             NavigationLink(
                                 destination: PostDetailView(id: comment.id),
@@ -30,13 +30,17 @@ struct CommentGridView: View {
                                         .padding(12)
                                         .background(Color.gray.opacity(0.1))
                                         .cornerRadius(8)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .fixedSize(horizontal: false, vertical: true) // Keep the width flexible while constraining the height
+                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to leading edge
+                                        .frame(maxWidth: .infinity, alignment: .trailing) // Align to trailing edge
+                                        .frame(minWidth: 0, maxWidth: .infinity) // Set both min and max width to infinity
                                 }
                             )
                         }
                     }
-                    .padding()
+                    .padding(20) // Add padding around the whole LazyVGrid
+
+
                 }
             }
             .navigationTitle("Comments")
