@@ -16,7 +16,7 @@ The Comment Management App is a SwiftUI-based application designed to manage and
 1. Clone the repository:
 
     ```bash
-   
+   https://github.com/mitchelle-22/Comment_Management_App-.git
     ```
 
 2. Open the project in Xcode.
