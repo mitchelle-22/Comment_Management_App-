@@ -11,7 +11,9 @@ import SwiftUI
 struct Comment_Management_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            CommentManagementTabView()
+            SplashScreenView()
+               
+//            CommentManagementTabView()
         }
     }
 }
